@@ -1,0 +1,12 @@
+@accessToken = QWxpZWYgU2F0dQ==
+### POST Deposit Balance
+POST http://localhost:8000/api/v1/deposit
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "amount" : 5000,
+    "order_id": 1,
+    "timestamp": "{{$timestamp}}"
+}
