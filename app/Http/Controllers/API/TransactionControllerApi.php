@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
+use DB;
+use Illuminate\Http\Request;
 
 class TransactionControllerApi extends Controller
 {
@@ -11,6 +13,24 @@ class TransactionControllerApi extends Controller
     private static function isMultipleOfFive(int $number): bool
     {
         return $number % 5 === 0;
+    }
+
+    public function history(Request $request)
+    {
+        $data = DB::table('transactions')->where('user_id', '=', $request->user_id);
+        return dataTables()->of($data)
+            ->editColumn('created_at', function ($item) {
+                return date("d-m-Y H:i:s", strtotime($item->created_at));
+            })
+            ->editColumn('status', function ($item) {
+                if ($item->status === "1") {
+                    return 'Success';
+                } else {
+                    return 'Failed';
+                }
+            })
+            ->addIndexColumn()
+            ->make(true);
     }
 
     public function deposit(TransactionRequest $request)
