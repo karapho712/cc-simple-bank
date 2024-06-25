@@ -18,6 +18,7 @@ class TransactionControllerApi extends Controller
     public function history(Request $request)
     {
         $data = DB::table('transactions')->where('user_id', '=', $request->user_id);
+
         return dataTables()->of($data)
             ->editColumn('amount', function ($item) {
                 return number_format($item->amount, 2);
@@ -47,7 +48,8 @@ class TransactionControllerApi extends Controller
             $validatedData['status'] = 2; //Failed transaction
             $validatedData['description'] = 'failed because id multiple of five';
             $transaction = Transaction::create_deposit($validatedData);
-            return response()->json(['message' => 'failed because id multiple of five'], 422);
+            $transaction['message'] = 'failed because id multiple of five';
+            return response()->json($transaction, 422);
         } else {
             $validatedData['status'] = 1; //Success transaction
             $transaction = Transaction::create_deposit($validatedData);
@@ -66,13 +68,12 @@ class TransactionControllerApi extends Controller
             $validatedData['status'] = 2; //Failed transaction
             $validatedData['description'] = 'failed because id multiple of five';
             $transaction = Transaction::create_withdrawal($validatedData);
-            return response()->json(['message' => 'failed because id multiple of five'], 422);
+            $transaction['message'] = 'failed because id multiple of five';
+            return response()->json($transaction, 422);
         } else {
             $validatedData['status'] = 1; //Success transaction
             $transaction = Transaction::create_withdrawal($validatedData);
             return response()->json($transaction, 201);
         }
-
-        return response()->json($transaction, 201);
     }
 }
