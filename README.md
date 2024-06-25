@@ -13,11 +13,15 @@
 
 A simple bank repository
 
+Note: Every multiple of ID 5 makes the transaction fail
+
 ### Includes
 
 -   User (see migrations & seeders)
 -   Manual hit api (see manual folder)
 -   Authentication (pass: password)
+-   -   aliefsatu@gmail.com
+-   -   aliefdua@gmail.com
 -   History GUI ('/dashboard')
 -   Deposit GUI ('/deposit')
 -   Withdraw GUI ('/withdraw')
