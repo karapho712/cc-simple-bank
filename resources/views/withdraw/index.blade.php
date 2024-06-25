@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">Rp</span>
                         </div>
                         <input type="number" step=".01" name="amount" class="form-control">
                         <input id="OrderId" type="text" style="display: none" name="order_id"
