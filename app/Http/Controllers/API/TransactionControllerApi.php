@@ -19,6 +19,9 @@ class TransactionControllerApi extends Controller
     {
         $data = DB::table('transactions')->where('user_id', '=', $request->user_id);
         return dataTables()->of($data)
+            ->editColumn('amount', function ($item) {
+                return number_format($item->amount, 2);
+            })
             ->editColumn('created_at', function ($item) {
                 return date("d-m-Y H:i:s", strtotime($item->created_at));
             })

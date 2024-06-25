@@ -20,12 +20,13 @@
                             value="{{ auth()->user()->id }}-{{ ($latest->id ?? 0) + 1 }}" class="form-control">
                     </div>
                 </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button id="SubmitButton" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            <button id="SubmitButton" type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        </form>
+
     </div>
     <!-- /.card -->
     </div>
@@ -60,12 +61,28 @@
                         const newOrderId = userId + '-' + (data.id + 1);
 
                         $('#OrderId').val(newOrderId);
+
+                        $(document).Toasts('create', {
+                            class: 'bg-success',
+                            title: 'Withdraw',
+                            // subtitle: 'Deposit',
+                            body: 'Balance update',
+                            autohide: true,
+                            delay: 3000
+                        })
                     },
                     complete: function(data) {
                         buttonSubmit.prop('disabled', false);
                     },
                     error: function(xhr, status, error) {
-                        console.log(xhr.responseJSON.errors);
+                        console.log(xhr.responseJSON.message);
+                        $(document).Toasts('create', {
+                            class: 'bg-danger',
+                            title: 'Error',
+                            body: xhr.responseJSON.message,
+                            autohide: true,
+                            delay: 3000
+                        })
                     }
                 });
             });

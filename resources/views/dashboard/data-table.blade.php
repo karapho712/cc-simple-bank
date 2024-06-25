@@ -77,6 +77,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
+                searching: false,
                 processing: true,
                 serverSide: true,
                 ajax: {

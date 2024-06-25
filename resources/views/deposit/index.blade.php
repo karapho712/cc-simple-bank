@@ -59,12 +59,27 @@
                         const newOrderId = userId + '-' + (data.id + 1);
 
                         $('#OrderId').val(newOrderId);
+                        $(document).Toasts('create', {
+                            class: 'bg-success',
+                            title: 'Deposit',
+                            // subtitle: 'Deposit',
+                            body: 'Balance update',
+                            autohide: true,
+                            delay: 3000
+                        })
                     },
                     complete: function(data) {
                         buttonSubmit.prop('disabled', false);
                     },
                     error: function(xhr, status, error) {
-                        console.log(xhr.responseJSON.errors);
+                        console.log(xhr.responseJSON.message);
+                        $(document).Toasts('create', {
+                            class: 'bg-danger',
+                            title: 'Error',
+                            body: xhr.responseJSON.message,
+                            autohide: true,
+                            delay: 3000
+                        })
                     }
                 });
             });
